@@ -12,6 +12,8 @@ export default function Lista({navigation}) {
 
   const [view, setView] = useState([]);
   const [status, setStatus] = useState('');
+  const [id, setId] = useState('');
+
 
   async function exibir(){
 
@@ -44,17 +46,17 @@ export default function Lista({navigation}) {
    
   async  function del(key){
     const realm = await getRealm();
-
+    
     try {
       realm.write(()=>{
-        realm.delete(realm.objects("Order").filtered(`_id = '${key}'`));
+       // realm.delete(realm.objects("Order").filtered(`_id = '${key}'`));
       });
     } catch (error) {
       Alert.alert('Chamado', "Não foi possivel Deletar")
       realm.close();
       
     }
-    exibir()
+    //exibir()
   }
 
   async function hendleStatus(){
@@ -76,8 +78,10 @@ export default function Lista({navigation}) {
     
   }
 
- const list = (item) =>{
+ const list = (item, props) =>{
     let key=item._id
+    setId(key);
+    
     return(
         <TouchableOpacity key={item._id} style={styles.caixa} onPress={()=> hendleStatus()}>
 
@@ -95,7 +99,7 @@ export default function Lista({navigation}) {
               </View>
                   
                   <View style={styles.box_2}>
-                    <TouchableOpacity onPress={()=> navigation.navigate('Editar')}>
+                    <TouchableOpacity onPress={()=> navigation.navigate('Editar', id, console.log(id))}>
                       <FontAwesome name="pencil" size={25} color="black" />
                     </TouchableOpacity>
                     <TouchableOpacity onPress={()=> del(key)}>

@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity, Alert } from 'reac
 import { AntDesign } from '@expo/vector-icons';
 
 
-
+import {Lista} from '../../componentes/Lista';
 
 
 
@@ -13,7 +13,19 @@ export default function Editar({navigation}) {
   const [chamado, setChamado] = useState('')
   const [equipamento, setEquipamento] = useState('')
   const [descricao, setDescricao] = useState('');
+  const [idKey, setIdKey] = useState([id]);
+
     
+  /*let atualizarTudo = (useChamado, useEquipamento, userDescricao) => {
+    setChamado(userChamado);
+    setEquipamento(userEquipamento);
+    setDescricao(userDescricao);
+  };*/
+
+  async function update(id){
+    console.log(id)
+   
+  }
 
   return (
     
@@ -43,7 +55,7 @@ export default function Editar({navigation}) {
             placeholder='Equipameno'
             onChangeText={setEquipamento}
           />
-
+          <Text>{idKey}</Text>
           <TextInput
             style={styles.input}
             placeholder='Descrição do Chamado'
@@ -55,7 +67,7 @@ export default function Editar({navigation}) {
       </View>
 
     <View style={styles.add}>
-      <TouchableOpacity style={styles.add_btn} onPress={()=> salvar()}>
+      <TouchableOpacity style={styles.add_btn} onPress={()=> update(id)}>
         <Text style={styles.btn_txt}>Registrar Chamado</Text>
       </TouchableOpacity>
     </View>
