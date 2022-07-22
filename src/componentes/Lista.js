@@ -57,10 +57,29 @@ export default function Lista({navigation}) {
     exibir()
   }
 
+  async function hendleStatus(){
+    const realm = await getRealm();
+
+    try {
+      
+        const select = realm
+        .objects("Order")
+        .filtered(`_id = '${id}'`)[0]
+        realm.write(()=>{
+         select.status = select.status === "open" ? "closed" : "open"; 
+        });
+    } catch (error) {
+      Alert.alert('Chamado', "Não foi possivel Fechar")
+      realm.close();
+      
+    }
+    
+  }
+
  const list = (item) =>{
     let key=item._id
     return(
-        <TouchableOpacity key={item._id} style={styles.caixa}>
+        <TouchableOpacity key={item._id} style={styles.caixa} onPress={()=> hendleStatus()}>
 
           
 
