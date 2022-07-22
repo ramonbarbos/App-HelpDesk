@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "Chamados",
+    "slug": "Chamados",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
