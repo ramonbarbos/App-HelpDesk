@@ -1,32 +1,45 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
+import { FontAwesome } from '@expo/vector-icons';
 
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
 import Lista from '../../componentes/Lista';
 
+import {getRealm} from '../../databases/realm';
 
 
-export default function Home({navigation}) {
 
+export default function Home({navigation}, item) {
 
+  const [onFilter, setOnFilter] = useState([]);
+
+  function hendleStatusOpen() { 
+    setOnFilter('open');
+  }
+  function hendleStatusClosed() { 
+    setOnFilter('closed');
+  }
 
   return (
     <View style={styles.container}>
-
+      <StatusBar style="auto" />
       <View style={styles.titulo}>
         <View>
           <Text style={styles.txt_titulo}>HelpDesk</Text>
-          <Text style={styles.sub_txt_titulo}>Contate-nos e resolveremos!</Text>
+          <Text style={styles.sub_txt_titulo}>Registre seu Chamado!</Text>
         </View>
+        <TouchableOpacity style={styles.user_btn}>
+         <FontAwesome name="user" size={25} color="black" />
+        </TouchableOpacity>
       </View>
 
       <View >
         <View style={styles.btn_caixa}>
-          <TouchableOpacity style={styles.btn_aberto}>
+          <TouchableOpacity style={styles.btn_aberto} onPress={() => hendleStatusOpen()} >
             <Text style={styles.btn_txt}>Aberto</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.btn_fechado}>
+          <TouchableOpacity style={styles.btn_fechado} onPress={() => hendleStatusClosed()}>
             <Text style={styles.btn_txt}>Fechado</Text>
           </TouchableOpacity>
         </View>
@@ -35,16 +48,16 @@ export default function Home({navigation}) {
       <View style={styles.caixa_chamados}>
         <View style={styles.chamados}>
           <Text style={styles.txt_titulo}>Chamados</Text>
-          <Text style={styles.sub_txt_titulo}>0</Text>
+          <Text style={styles.sub_txt_titulo}>{onFilter}</Text>
         </View>
 
-        <Lista navigation={navigation}/>
+        <Lista navigation={navigation} />
 
       </View>
 
     <View style={styles.add}>
       <TouchableOpacity style={styles.add_btn} onPress={()=> navigation.navigate('New')}>
-        <Text style={styles.btn_txt}>Novo Chamado</Text>
+        <Text style={styles.btn_txt_add}>+</Text>
       </TouchableOpacity>
     </View>
 
@@ -63,7 +76,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems:'center',
-    marginTop: 50,
+    marginTop: 30,
     marginBottom: 50,
   },
   txt_titulo: {
@@ -72,6 +85,14 @@ const styles = StyleSheet.create({
   },
   sub_txt_titulo: {
     fontSize: 15,
+  },
+  user_btn:{
+    width:60,
+    height:60,
+    backgroundColor: '#F8F8F8',
+    borderRadius: 50,
+    alignItems : 'center',
+    justifyContent: 'center',
   },
   btn_caixa:{
     flexDirection:'row',
@@ -83,9 +104,9 @@ const styles = StyleSheet.create({
     height: 40,
     alignItems : 'center',
     justifyContent: 'center',
-    backgroundColor: '#D92525',
-    borderTopLeftRadius:10,
-    borderBottomLeftRadius:10,
+    backgroundColor: '#04B2D9',
+    borderTopLeftRadius:15,
+    borderBottomLeftRadius:15,
 
   },
   btn_fechado:{
@@ -93,10 +114,11 @@ const styles = StyleSheet.create({
     height: 40,
     alignItems : 'center',
     justifyContent: 'center',
-    backgroundColor: '#044040',
-    borderTopRightRadius:10,
-    borderBottomRightRadius:10,
+    backgroundColor: '#CF0620',
+    borderTopRightRadius:15,
+    borderBottomRightRadius:15,
   },
+  
   btn_txt:{
     fontSize: 15,
     fontWeight: 'bold',
@@ -110,13 +132,22 @@ const styles = StyleSheet.create({
     justifyContent:'space-between',
     alignItems : 'center',
   },
+  add:{
+    alignItems : 'flex-end',
+
+  },
   add_btn:{
-    width:'100%',
-    height:40,
-    backgroundColor: '#044040',
-    borderRadius: 10,
+    width:60,
+    height:60,
+    backgroundColor: '#04B2D9',
+    borderRadius: 50,
     alignItems : 'center',
     justifyContent: 'center',
-  }
+  },
+  btn_txt_add:{
+    fontSize: 40,
+    fontWeight: '300',
+    color: '#fff',
+  },
   
 });

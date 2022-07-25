@@ -3,16 +3,17 @@ import  React, { useState, useEffect, useCallback } from 'react';
 import { FontAwesome } from '@expo/vector-icons';
 import { useFocusEffect } from '@react-navigation/native';
 
-
+import {Home} from '../pages/Home';
 
 import {getRealm} from '../../src/databases/realm'
 
 
-export default function Lista({navigation}) {
+export default function Lista({navigation}, props) {
 
   const [view, setView] = useState([]);
-  const [status, setStatus] = useState('');
-  const [id, setId] = useState('');
+  const [id, setId] = useState();
+  const [status, setStatus] = useState(console.log(props.onFilter));
+  
 
 
   async function exibir(){
@@ -78,7 +79,7 @@ export default function Lista({navigation}) {
     
   }
 
- const list = (item, props) =>{
+ const list = (item) =>{
     let key=item._id
     setId(key);
     
@@ -89,13 +90,14 @@ export default function Lista({navigation}) {
 
            <View style={styles.row}>
 
-           <View style={{width:5, height:"100%", backgroundColor: 'red', borderBottomLeftRadius:10,borderTopLeftRadius:10}}></View> 
+           <View style={{width:5, height:"100%", backgroundColor: '#04B2D9', borderBottomLeftRadius:10,borderTopLeftRadius:10}}></View> 
 
               <View style={styles.content}>
               <View style={styles.box_1}>
 
-                      <Text style={styles.txt}>{item.chamado}</Text>
-                      <Text style={styles.txt}>{item.equipamento}</Text>
+                      <Text style={styles.txt}>#{item.chamado}</Text>
+                      <Text style={styles.txt_2}>Assunto: {item.equipamento}</Text>
+                      <Text style={styles.txt_3}>Descrição: {item.descricao}</Text>
               </View>
                   
                   <View style={styles.box_2}>
@@ -137,6 +139,7 @@ const styles=StyleSheet.create({
         flex:1
     },
     lista: {
+      marginTop: 10,
         width:'100%',
         backgroundColor: '#F5F5F5',
         height:'95%'
@@ -148,7 +151,7 @@ const styles=StyleSheet.create({
     },
     row:{
         flexDirection: 'row',
-        height:80,
+        height:100,
         justifyContent: 'center',
         width:'100%',
         borderBottomWidth: 1,
@@ -165,7 +168,8 @@ const styles=StyleSheet.create({
 
     },
      box_1:{
-
+      //backgroundColor:'#e5e5e5',
+      width:'80%'
     },
      box_2:{
       flexDirection: 'row',
@@ -174,7 +178,20 @@ const styles=StyleSheet.create({
 
     },
     txt: {
+        fontSize: 16,
+        fontWeight: '400',
+        margin:5
+      },
+      txt_2: {
+        fontSize: 16,
+        fontWeight: '500',
+        margin:3
+      },
+      txt_3: {
         fontSize: 15,
-        fontWeight: 'bold',
+        fontWeight: '400',
+        color:'#6D6D6D',
+        margin:3
+
       },
   })

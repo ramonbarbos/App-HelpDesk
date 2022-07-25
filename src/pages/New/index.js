@@ -1,10 +1,11 @@
 import  React, { useState, useEffect } from 'react';
+import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput, Alert } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import uuid from 'react-native-uuid';
 
-
-
+import { callList } from '../../componentes/callList';
+import Select from '../../componentes/Select';
 import {getRealm} from '../../databases/realm'
 
 
@@ -60,6 +61,7 @@ export default function New({navigation}) {
 
   return (
     <View style={styles.container}>
+      <StatusBar style="auto" />
       <View style={styles.titulo}>
       <TouchableOpacity  onPress={()=> navigation.goBack()}>
         <AntDesign name="left" size={20} color="black" />
@@ -76,17 +78,19 @@ export default function New({navigation}) {
       <View style={styles.caixa_chamados}>
         <View style={styles.chamados}>
           
-          <TextInput
-            style={styles.input}
-            placeholder='Numero do Chamado'
-            onChangeText={setChamado}
+         
+          <Select
+          options={callList}
+          onChangeSelect={setChamado}
+          text='Setor'
           />
-
+          <View style={styles.espaco}></View>
           <TextInput
             style={styles.input}
-            placeholder='Equipameno'
+            placeholder='Assunto'
             onChangeText={setEquipamento}
           />
+          <View style={styles.espaco}></View>
 
           <TextInput
             style={styles.input}
@@ -113,17 +117,17 @@ export default function New({navigation}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    padding: 20
+    backgroundColor: '#FFFFFF',
+    padding: 30
   },
   titulo: {
     flexDirection: 'row',
     alignItems:'center',
-    marginTop: 50,
-    marginBottom: 50,
+    marginTop: 30,
+    marginBottom: 70,
   },
   caixa_txt:{
-    marginLeft: 50,
+    marginLeft: 30,
 
   },
   txt_titulo: {
@@ -147,6 +151,10 @@ const styles = StyleSheet.create({
     alignItems : 'center',
 
   },
+  espaco:{
+    width:'100%',
+    height:50,
+  },
   input: {
     width:'100%',
     height:40,
@@ -158,8 +166,8 @@ const styles = StyleSheet.create({
   add_btn:{
     width:'100%',
     height:40,
-    backgroundColor: '#044040',
-    borderRadius: 10,
+    backgroundColor: '#04B2D9',
+    borderRadius: 15,
     alignItems : 'center',
     justifyContent: 'center',
   }
