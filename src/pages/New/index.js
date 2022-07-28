@@ -98,7 +98,6 @@ export default function New({navigation}) {
             onChangeText={setDescricao}
           />
           
-          <Text>{onfilter}</Text>
 
         </View>
       </View>

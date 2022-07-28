@@ -16,7 +16,7 @@ export default function Home({navigation}, item) {
 
   function hendleStatusOpen() { 
     setOnFilter('open');
-  }
+    }
   function hendleStatusClosed() { 
     setOnFilter('closed');
   }
@@ -51,7 +51,7 @@ export default function Home({navigation}, item) {
           <Text style={styles.sub_txt_titulo}>{onFilter}</Text>
         </View>
 
-        <Lista navigation={navigation} />
+        <Lista navigation={navigation} /> 
 
       </View>
 

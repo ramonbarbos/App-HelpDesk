@@ -3,16 +3,16 @@ import  React, { useState, useEffect, useCallback } from 'react';
 import { FontAwesome } from '@expo/vector-icons';
 import { useFocusEffect } from '@react-navigation/native';
 
-import {Home} from '../pages/Home';
 
 import {getRealm} from '../../src/databases/realm'
 
 
-export default function Lista({navigation}, props) {
+export default function Lista({navigation}, item) {
 
   const [view, setView] = useState([]);
   const [id, setId] = useState();
-  const [status, setStatus] = useState(console.log(props.onFilter));
+  const [status, setStatus] = useState([]);
+  
   
 
 
@@ -50,14 +50,14 @@ export default function Lista({navigation}, props) {
     
     try {
       realm.write(()=>{
-       // realm.delete(realm.objects("Order").filtered(`_id = '${key}'`));
+        realm.delete(realm.objects("Order").filtered(`_id = '${key}'`));
       });
     } catch (error) {
       Alert.alert('Chamado', "Não foi possivel Deletar")
       realm.close();
       
     }
-    //exibir()
+    exibir()
   }
 
   async function hendleStatus(){
@@ -98,6 +98,7 @@ export default function Lista({navigation}, props) {
                       <Text style={styles.txt}>#{item.chamado}</Text>
                       <Text style={styles.txt_2}>Assunto: {item.equipamento}</Text>
                       <Text style={styles.txt_3}>Descrição: {item.descricao}</Text>
+                      <Text style={styles.txt_3}>Descrição: {item.onFilter}</Text>
               </View>
                   
                   <View style={styles.box_2}>
