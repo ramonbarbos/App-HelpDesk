@@ -1,5 +1,6 @@
-Aplicativo HelpDesk - React Native
--Esse App é um projeto com o intuito de chamadosm (task) para organização pessoal ou empresarial.
+#Aplicativo HelpDesk - React Native
+
+-Esse App é um projeto com o intuito de realizar chamados (task) para organização pessoal ou empresarial.
 
 -O desenvolvimento do aplicativo está dividido em duas partes: front-end e back-end, onde o NodeJS é ultilizado por completo, implementando no back-end o MongoDB para a criação e gerenciamento do banco de dados.
 
